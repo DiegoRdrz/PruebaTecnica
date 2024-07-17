@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: PruebaTecnica
+  data:
+    mongodb:
+      uri: mongodb+srv://diegordrz455:Tri12airt1@dbmongo.pxrrjwg.mongodb.net/PruebaTecnica?retryWrites=true&w=majority&ssl=true&appName=DBMongo
+
+
