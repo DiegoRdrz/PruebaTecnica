@@ -18,6 +18,5 @@ public class RequestResponseDTO {
     private String email;
     private String password;
     private String role;
-
     private User user;
 }

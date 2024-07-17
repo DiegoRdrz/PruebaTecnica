@@ -2,6 +2,7 @@ package com.DiegoRdrz.PruebaTecnica.Config;
 
 import com.DiegoRdrz.PruebaTecnica.Auth.JWTAuthFilter;
 import com.DiegoRdrz.PruebaTecnica.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     @Autowired
@@ -32,7 +34,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request.requestMatchers("/api/v1/auth/**", "/api/v1/public/**").permitAll()
-                        .requestMatchers("/api/v1/serie/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers("/api/v1/series/**").hasAnyAuthority("ADMIN")
                         .anyRequest().authenticated())
                 .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())

@@ -1,6 +1,7 @@
 package com.DiegoRdrz.PruebaTecnica.Controller;
 
 import com.DiegoRdrz.PruebaTecnica.DTO.FibonacciDTO;
+import com.DiegoRdrz.PruebaTecnica.Model.Fibonacci;
 import com.DiegoRdrz.PruebaTecnica.service.FibonacciService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -10,14 +11,14 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/api/v1/serie")
+@RequestMapping("/api/v1/series")
 public class FibonacciController {
     @Autowired
     private FibonacciService fibonacciService;
 
     @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping
-    public List<FibonacciDTO> getAllFibonacciSequences() {
+    public List<Fibonacci> getAllFibonacciSequences() {
         return fibonacciService.getAllFibonacciSequences();
     }
 

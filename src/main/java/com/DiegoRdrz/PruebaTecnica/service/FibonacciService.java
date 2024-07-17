@@ -17,22 +17,29 @@ public class FibonacciService {
     @Autowired
     private FibonacciRepository fibonacciRepository;
 
-    public FibonacciDTO generateFibonacci(String time) {
+    private static List<Integer> getIntegers(String time) {
         String[] timeParts = time.split(":");
         String minuteStr = timeParts[1];
+        int seconds = Integer.parseInt(timeParts[2]);
         int a = Integer.parseInt(minuteStr.substring(0, 1));
         int b = Integer.parseInt(minuteStr.substring(1, 2));
+
 
         List<Integer> fibonacciSequence = new ArrayList<>();
         fibonacciSequence.add(a);
         fibonacciSequence.add(b);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < seconds; i++) {
             int next = a + b;
             fibonacciSequence.add(next);
             a = b;
             b = next;
         }
+        return fibonacciSequence;
+    }
+
+    public FibonacciDTO generateFibonacci(String time) {
+        List<Integer> fibonacciSequence = getIntegers(time);
 
         Fibonacci fibonacci = new Fibonacci();
         fibonacci.setTime(time);
@@ -46,19 +53,12 @@ public class FibonacciService {
         return fibonacciDTO;
     }
 
-    public List<FibonacciDTO> getAllFibonacciSequences() {
-        List<Fibonacci> fibonacciList = fibonacciRepository.findAll();
-        List<FibonacciDTO> fibonacciDTOList = new ArrayList<>();
-
-        for (Fibonacci fibonacci : fibonacciList) {
-            FibonacciDTO fibonacciDTO = new FibonacciDTO();
-            fibonacciDTO.setTime(fibonacci.getTime());
-            fibonacciDTO.setSequence(fibonacci.getSequence());
-            fibonacciDTO.setSeries(Arrays.stream(fibonacci.getSequence().split(",")).map(Integer::parseInt).collect(Collectors.toList()));
-            fibonacciDTOList.add(fibonacciDTO);
+    public List<Fibonacci> getAllFibonacciSequences() {
+        try {
+            return fibonacciRepository.findAll();
+        } catch (Exception e) {
+            throw new RuntimeException("Error al obtener las secuencias de Fibonacci", e);
         }
-
-        return fibonacciDTOList;
     }
 
 }

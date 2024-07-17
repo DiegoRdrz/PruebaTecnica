@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class FibonacciDTO {
-
+    private String id;
     private String time;
     private String sequence;
     private List<Integer> series;
